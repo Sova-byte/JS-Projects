@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9ddb5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 20px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .add-task {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 0;
+        }
+        .add-task input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+        }
+        .add-task input:focus {
+            border-color: #06f4b1;
+        }
+        .add-task button {
+            padding: 12px 20px;
+            background: #07d29f;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .add-task button:hover {
+            background: #04a77e;
+        }
+       
+        .list {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            margin-right: 20px;
+            border-left: 4px solid #07d29f;
+            border-radius: 6px;
+            display: flex;
+            align-items: center; 
+            justify-content: space-between;
+            font-size: 16px;
+            color: #333;
+        }
+        .del, .don{
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor:pointer;
+            opacity: 0.6;
+            margin-right: 10px;
+        }
+        .don{
+            background: rgb(101, 163, 7);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Todo List</h1>
+
+    <!-- Add Task Form (No JS - just UI) -->
+    <form class="add-task">
+        <input type="text" placeholder="Enter a new task..." id="taskss" />
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Task List -->
+    <div class="" id="res"></div>
+</div>
+<script src="./index.js"></script>
+</body> 
+</html>

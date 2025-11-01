@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football IQ</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 35px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .quiz-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .quiz-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .question {
+            margin-bottom: 28px;
+            padding: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            border-left: 6px solid #00c6ff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            gap: 12px;
+        }
+
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #00c6ff;
+            color: #1e3c72;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 198, 255, 0.3);
+        }
+
+        .question h3 {
+            font-size: 1.35rem;
+            color: #e0f7ff;
+            line-height: 1.4;
+            margin: 0;
+            flex: 1;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        /* Hidden real radio input */
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Styling the label to look like a button */
+        .option {
+            display: block;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.05rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .option:hover {
+            background: rgba(0, 198, 255, 0.25);
+            border-color: #00c6ff;
+            transform: scale(1.04);
+            box-shadow: 0 5px 15px rgba(0, 198, 255, 0.2);
+        }
+
+        /* Selected State: Background + Border */
+        input[type="radio"]:checked+.option {
+            background: #00c6ff;
+            color: #1e3c72;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0, 198, 255, 0.4);
+        }
+
+
+
+
+        /* Ripple effect on hover */
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 198, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: 0;
+        }
+
+        .option:hover::before {
+            width: 550px;
+            height: 550px;
+        }
+
+        .option span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            margin-top: 35px;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 198, 255, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            .quiz-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .quiz-container {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .question {
+                padding: 18px;
+            }
+
+            .question-header {
+                gap: 10px;
+            }
+
+            .question-number {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+
+            .option {
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Football Quiz</h1>
+            <p>Test your knowledge of the beautiful game!</p>
+        </div>
+
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-number">1</div>
+                    <h3>Which country won the 2018 FIFA World Cup?</h3>
+                </div>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q1" value="Germany">
+                        <div class="option" id=><span>Germany</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="France">
+                        <div class="option" id="France"><span>France</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="Brazil">
+                        <div class="option" id="Brazil"><span>Brazil</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="Argentina">
+                        <div class="option" id="Argentina"><span>Argentina</span></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-number">2</div>
+                    <h3>Who is the all-time top scorer in Champions League history?</h3>
+                </div>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q2" value="Lionel Messi">
+                        <div class="option"><span>Lionel Messi</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="Robert Lewandowski">
+                        <div class="option"><span>Robert Lewandowski</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="Cristiano Ronaldo">
+                        <div class="option"><span>Cristiano Ronaldo</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="Karim Benzema">
+                        <div class="option"><span>Karim Benzema</span></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-number">3</div>
+                    <h3>Which club has won the most Premier League titles?</h3>
+                </div>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q3" value="Liverpool">
+                        <div class="option"><span>Liverpool</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="Arsenal">
+                        <div class="option"><span>Arsenal</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="Manchester United">
+                        <div class="option"><span>Manchester United</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="Chelsea">
+                        <div class="option"><span>Chelsea</span></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-number">4</div>
+                    <h3>In which year was the first World Cup held?</h3>
+                </div>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q4" value="1926">
+                        <div class="option"><span>1926</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="1930">
+                        <div class="option"><span>1930</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="1934">
+                        <div class="option"><span>1934</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="1938">
+                        <div class="option"><span>1938</span></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-number">5</div>
+                    <h3>Which player is known as 'The King of Football'?</h3>
+                </div>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q5" value="Diego Maradona">
+                        <div class="option"><span>Diego Maradona</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="Johan Cruyff">
+                        <div class="option"><span>Johan Cruyff</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="Pele">
+                        <div class="option"><span>Pelé</span></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="Zinedine Zidane">
+                        <div class="option"><span>Zinedine Zidane</span></div>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Quiz</button>
+        </form>
+
+        <div class="footer">
+            <p>5 Questions • Designed by Aayush • Good Luck!</p>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
