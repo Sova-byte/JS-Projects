@@ -9,16 +9,16 @@ parent.addEventListener('click', (e) => {
     const cpu_move = arr[Math.floor(Math.random() * 3)];
     if (user_move == 'rock' && cpu_move == 'paper' || user_move == 'paper' && cpu_move == 'scissors' || user_move == 'scissors' && cpu_move == 'rock') {
         cpu_score++;
-        document.querySelector('h4').textContent="CPU Won";
+        move.innerHTML = `CPU chooses ${cpu_move}: <span style="color: red;">CPU Won</span>`;
     }
     else if (cpu_move == 'rock' && user_move == 'paper' || cpu_move == 'paper' && user_move == 'scissors' || cpu_move == 'scissors' && user_move == 'rock') {
         user_score++;
-        document.querySelector('h4').textContent="You Won";
+        move.innerHTML = `CPU chooses ${cpu_move}: <span style="color: blue;">You Won</span>`;
     }
     else {
-        document.querySelector('h4').textContent="Tie";
+        move.innerHTML = `CPU chooses ${cpu_move}: <span style="color: green;">Tie</span>`;
     }
-    result.textContent = `Your Score: ${user_score} VS Computer Score: ${cpu_score}`;
-    move.textContent = `CPU chooses ${cpu_move}`;
+    result.innerHTML = `Your Score: <span style="color: blue;">${user_score}</span>  Computer Score: <span style="color: red;">${cpu_score}</span>`;
+    
     
 })
