@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Calendar</title>
+    <style>
+        .calendar {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(245, 245, 245);
+            border-radius: 40px;
+            height: 300px;
+            width: 300px;
+            padding: 5px;
+        }
+        .day{
+            color: rgb(248, 37, 37);
+            font-family:cursive
+
+        }
+        .date{
+            font-size: 150px;
+            font-weight: 400;
+            font-family:Verdana, Geneva, Tahoma, sans-serif 
+        }
+    </style>
+</head>
+
+<body style="background-color: black; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 35PX;">
+    <div class="calendar" id="calendar">
+        <div class="day" id="day"></div>
+        <div class="date" id="date"></div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
