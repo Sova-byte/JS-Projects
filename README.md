@@ -19,6 +19,7 @@ This repo contains **10 interactive and beginner-friendly JavaScript projects** 
 | 8 | **Love Calculator**        | Enter two names to get a fun love compatibility score (0–100).              | Random generation, Input validation, Fun UI      |
 | 9 | **Random Quote Generator** | Click a button to display a new inspirational quote.                        | Arrays, `Math.random`, Dynamic text update       |
 | 10| **Todo List**              | Add, mark as done, and delete tasks. Persists using `localStorage`.         | CRUD, Local Storage, Event delegation            |
+| 10| **Mini Calendar**          | Reall-time mini calendar to display day and date of month                   | `setInterval`, `togetDay`, `togetDate`           |
 
 ---
 
